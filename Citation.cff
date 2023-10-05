@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+author:
+- family-names: "Morell Dameto"
+  given-names: "Nicolas"
+  orcid: "https://orcid.org/0000-0002-3829-4425"
+title: "PhD Thesis Nicolas Morell Dameto"
+version: 1.0
+date-released: 2023-10-05
+url: "https://github.com/Nmorelldam/PhD-Thesis-Nicolas-Morell-Dameto"
