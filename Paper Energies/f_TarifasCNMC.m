@@ -1,20 +1,20 @@
 function Tariff=f_TarifasCNMC(BranchData,C,History)
-% La CNMC tiene en cuenta los costes de mantenimiento y el rÈdito de los activos
-% los cuales se dividen por nivel de tensiÛn, seg˙n dÛnde est·n situados (NT0-NT4)
+% La CNMC tiene en cuenta los costes de mantenimiento y el r√©dito de los activos
+% los cuales se dividen por nivel de tensi√≥n, seg√∫n d√≥nde est√°n situados (NT0-NT4)
 CostPerZone=zeros(max(BranchData(:,6)),1);
 for z=1:max(BranchData(:,6))
     CostPerZone(z,1)=sum(BranchData(BranchData(:,6)==z,7));
 end
-% DespuÈs se dividen estos costes entre potencia y energÌa seg˙n los
-% inductores de coste (principalmente a traves de tÈrmino de potencia).
+% Despu√©s se dividen estos costes entre potencia y energ√≠a seg√∫n los
+% inductores de coste (principalmente a traves de t√©rmino de potencia).
 EnergyCapacityAllocation=[1 0;0.75 0.25; 0.75 0.25];
 CostPerZone(:,2:3)=CostPerZone(:,1).*EnergyCapacityAllocation;
-% Se agregan los consumidores por nivel de tensiÛn
-% DespuÈs se calculan las horas pico de cada nivel de tensiÛn (2000 horas),
-% Para nuestro caso que tiene 24 horas, el n˙mero de horas pico es 5.
-% AquÌ surge un problema de la simplificaciÛn: con estos datos, si el pico
-% de demanda se representa con menos de 14 horas, el periodo 3 no est·
-% representado en algunos niveles de tensiÛn (CNMC tiene el mismo problema)
+% Se agregan los consumidores por nivel de tensi√≥n
+% Despu√©s se calculan las horas pico de cada nivel de tensi√≥n (2000 horas),
+% Para nuestro caso que tiene 24 horas, el n√∫mero de horas pico es 5.
+% Aqu√≠ surge un problema de la simplificaci√≥n: con estos datos, si el pico
+% de demanda se representa con menos de 14 horas, el periodo 3 no est√°
+% representado en algunos niveles de tensi√≥n (CNMC tiene el mismo problema)
 ConsumptionPerZone=zeros(max(C.ConsumerClass),24);
 for z=1:max(C.ConsumerClass)
     ConsumptionPerZone(z,:)=sum(C.Cons(C.ConsumerClass==z,:));
@@ -30,26 +30,26 @@ for t=1:max(C.TimePeriods)
     end
 end
 I2=I2/NumPeakHours;
-% La primera simplificaciÛn que se hace es que no se tienen en cuenta
+% La primera simplificaci√≥n que se hace es que no se tienen en cuenta
 % estacionalidades propuestas por la CNMC debido a la dificultad de
 % comparar tarifas con tantas variables
 % Se asigna a cada periodo horario el coste proporcional a la cantidad de horas que
-% que se encuentran dentro de la punta del nivel de tensiÛn. 
-% Se hace esto tanto para el tÈrmino de potencia como el de energÌa
-% Entonces ya se tiene lo que tiene que pagar cada nivel de tensiÛn en cada
-% periodo horario tanto en potencia como en energÌa.
+% que se encuentran dentro de la punta del nivel de tensi√≥n. 
+% Se hace esto tanto para el t√©rmino de potencia como el de energ√≠a
+% Entonces ya se tiene lo que tiene que pagar cada nivel de tensi√≥n en cada
+% periodo horario tanto en potencia como en energ√≠a.
 CapacityCharge=CostPerZone(:,2).*I2;
 EnergyCharge=CostPerZone(:,3).*I2;
 %% MODELO EN CASCADA
 % Ahora se aplica el modelo en cascada ya que los responsables de los
-% costes de un nivel de tensiÛn son los ususarios conectados a ese nivel
-% de tensiÛn y los usuarios conectados a niveles de tensiÛn inferiores.
-% Para calcular cÛmo se divide el coste (de un nivel de tensiÛn y periodo)
-% entre los niveles de tensiÛn responsables se utiliza el balance de 
-% potencia/energÌa en la hora de m·xima demanda de cada uno de los 6
+% costes de un nivel de tensi√≥n son los ususarios conectados a ese nivel
+% de tensi√≥n y los usuarios conectados a niveles de tensi√≥n inferiores.
+% Para calcular c√≥mo se divide el coste (de un nivel de tensi√≥n y periodo)
+% entre los niveles de tensi√≥n responsables se utiliza el balance de 
+% potencia/energ√≠a en la hora de m√°xima demanda de cada uno de los 6
 % periodos
-% Para determinar la hora de m·xima demanda de cada periodo sumamos todos 
-% los consumos para cada hora y buscamos el m·ximo de cada periodo
+% Para determinar la hora de m√°xima demanda de cada periodo sumamos todos 
+% los consumos para cada hora y buscamos el m√°ximo de cada periodo
 TotalConsumption=sum(C.Cons);
 CoefE=zeros((max(C.ConsumerClass)^2+max(C.ConsumerClass))/2,max(C.TimePeriods));
 CoefP=zeros((max(C.ConsumerClass)^2+max(C.ConsumerClass))/2,max(C.TimePeriods));
@@ -75,9 +75,9 @@ for p=1:max(C.TimePeriods)
     CoefE(5,p)=TablaCNMC_E(1,2)/sum(TablaCNMC_E(1,2:4))*CoefE(2,p);
     CoefE(6,p)=TablaCNMC_E(1,3)/sum(TablaCNMC_E(1,2:4))+TablaCNMC_E(1,2)/sum(TablaCNMC_E(1,2:4))*CoefE(3,p);
     
-%Cuando ya tenemos la hora m·xima, vemos cuanto pasa a traves de cada
+%Cuando ya tenemos la hora m√°xima, vemos cuanto pasa a traves de cada
 %transformador en esa hora, con lo que tenemos los flujos entre niveles de
-%tensiÛn
+%tensi√≥n
     [~,HourMaxConsumption(p)]=find(TotalConsumption==max(TotalConsumption(C.TimePeriods==p)));
     h=HourMaxConsumption(p);
     TablaCNMC_P=zeros(max(C.ConsumerClass),max(C.ConsumerClass)+1);
