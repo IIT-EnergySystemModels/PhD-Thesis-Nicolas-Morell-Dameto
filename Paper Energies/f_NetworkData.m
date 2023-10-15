@@ -61,8 +61,8 @@ Costs=[
   %InvestLine   MaintLine   InvestSubEst     MaintSubEst  InvestTransf     MaintTransf 
     900            30         17500          5000          12000            500
     ];
-   % SubEstación: extrapolada de SEI3, Centro de transformación CT_I_02, Línea BT_F_01 
-   % todo esté en Valor Presente (incluso los costes de mantenimiento)
+   % SubEstaciÃ³n: extrapolada de SEI3, Centro de transformaciÃ³n CT_I_02, LÃ­nea BT_F_01 
+   % todo estÃ© en Valor Presente (incluso los costes de mantenimiento)
 AmortizationYears=40;
 PresentValue=12000;
 RatePerPeriod=0.05;
@@ -70,7 +70,7 @@ Payment=RatePerPeriod*PresentValue/(1-(1+RatePerPeriod)^(-AmortizationYears));
 % km of ech line: proportional to miles of km of each level voltage
 % according to eurelectric
 BranchData= [
- % nºbranch km  SEst Trafo MaxCapacity Zone
+ % nÂºbranch km  SEst Trafo MaxCapacity Zone
      1      2     0    0 20         1
      2      1     0    0 20         1
      3      1     0    0 10         1
