@@ -14,7 +14,7 @@ ConsumerInputData=[ConsumerInputData;HistoryTDs{3,1}{4,3}];
 load('History_Norm_C_T2_1_cat_2_09012020112725.mat');
 ConsumerInputData=[ConsumerInputData;HistoryTDs{3,1}{1,3}];
 
-%%Hasta aquÌ se tienen los valores de los cluster m·s poblados de las categorÌas 2, 3 y 5
+%%Hasta aqu√≠ se tienen los valores de los cluster m√°s poblados de las categor√≠as 2, 3 y 5
 %% Ahora se aplican los valores deseados para el test (en MW)
 Consumers.ConsumerClass=[1,1,2,2,3,3,3,3,3];%Three voltage levels: HV, MV y LV for consumers 
 AverageConsumption=[10,5,2,1,0.005,0.005,0.005,0.005,0.005];
