@@ -8,9 +8,9 @@ for branch=1:19
     if MaxNetworkUsage(branch)<IncrThreshold*BranchData(branch,5)
         ResidualCosts(branch)=ResidualCosts(branch)+BranchData(branch,7);
     else
-        [NumHours,a]=find(abs(History.Network(branch,:))>=IncrThreshold*BranchData(branch,5));%øCuantas horas hay por encima del lÌmite?
-        IncrementalCost=BranchData(branch,8)/sum(NumHours); %el coste de inversiÛn se divide entre el n˙mero de horas que est·n por encima del lÌmite,
-        for i=1:length(a) %cada consumidor paga seg˙n su contribuciÛn a cada hora
+        [NumHours,a]=find(abs(History.Network(branch,:))>=IncrThreshold*BranchData(branch,5));%¬øCuantas horas hay por encima del l√≠mite?
+        IncrementalCost=BranchData(branch,8)/sum(NumHours); %el coste de inversi√≥n se divide entre el n√∫mero de horas que est√°n por encima del l√≠mite,
+        for i=1:length(a) %cada consumidor paga seg√∫n su contribuci√≥n a cada hora
             h=a(i);
             mpc.bus(:,3)=[0;0;C.Cons(1,h);C.Cons(2,h);0;0;0;C.Cons(3,h);C.Cons(4,h);0;0;C.Cons(5,h);C.Cons(6,h);0;C.Cons(7,h);0;C.Cons(8,h);C.Cons(9,h);0;0];
             mpc.gen(4,2)=History.Generation(4,h);
