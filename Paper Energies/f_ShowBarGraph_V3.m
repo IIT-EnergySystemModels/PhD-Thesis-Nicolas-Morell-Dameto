@@ -17,7 +17,7 @@ end
 subplot(4,2,[1 2])
 b=bar([VolumetricTariff.ConsEnergy(Consumer,:)'].*MW2kW/Day2year*Euro2cEuro,'BarWidth',0.4,'FaceColor','flat');
 title('Volumetric Charges')
-ylabel('c€/kWh')
+ylabel('câ‚¬/kWh')
 xlabel('Hour')
 ylim([0 2])
 b(1).CData = repmat(colours(3,:),24,1);
@@ -25,7 +25,7 @@ b(1).CData = repmat(colours(3,:),24,1);
 subplot(4,2,3)
 b=bar([TariffCNMC.ConsEnergy(Consumer,:)'].*MW2kW/Day2year*Euro2cEuro,'FaceColor','flat');
 title('Volumetric Charges')
-ylabel('c€/kWh')
+ylabel('câ‚¬/kWh')
 xlabel('Hour')
 ylim([0 0.8])
 b(1).CData = repmat(colours(2,:),24,1);
@@ -33,7 +33,7 @@ b(1).CData = repmat(colours(2,:),24,1);
 subplot(4,2,4)
 b=bar(TariffCNMC.ConsCapacity(Consumer,:)'.*MW2kW,'FaceColor','flat');
 title('Contracted capacity charges')
-ylabel('€/kW & year')
+ylabel('â‚¬/kW & year')
 xlabel('Period')
 ylim([0 20])
 %legend({'1.H9-H13 & H18-H21','2.H8 & H14-H17 & H22-H24','3.H1-H7'});
@@ -42,14 +42,14 @@ b(1).CData = repmat(colours(2,:)+DiffColor,3,1);
 subplot(4,2,5)
 bar(ProposedTariff.ConsCapacity(Consumer,:)'.*MW2kW)
 title('      Peak-coincident capacity charges')
-ylabel('€/kW & year')
+ylabel('â‚¬/kW & year')
 xlabel('Hour')
 ylim([0 30])
 %% Efficient Fixed
 subplot(4,2,6)
 b=bar(ProposedTariff.ConsFix(Consumer),'FaceColor','flat');
 title('Fixed Charges')
-ylabel('€/year')
+ylabel('â‚¬/year')
 ylim([0 250])
 b(1).CData = colours(1,:)+DiffColor;
 %% Annual payments
@@ -57,7 +57,7 @@ subplot(4,2,[7 8])
 varnames=categorical({'1.Forward-looking tariff','2.Accounting approach tariff','3.Volumetric Tariff'});
 b=bar(varnames,[ProposedTariff.AnnualPayment(Consumer,2:3); TariffCNMC.AnnualPayment(Consumer,2:3); [VolumetricTariff.AnnualPayment(Consumer),0]],'stacked','BarWidth',0.4,'FaceColor','flat');
 title('Annual Payments')
-ylabel('€')
+ylabel('â‚¬')
 ylim([0 1300])
 for k = 1:3
     b(1).CData(k,:) = colours(k,:);
